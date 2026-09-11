@@ -1,4 +1,4 @@
-# Prioritron - All-in-One Productivity & Life Management System
+# Prioritron - All-in-One Productivity App
 
 Prioritron is a comprehensive, modern productivity platform that goes beyond simple task management. It's your personal command center for boosting productivity and optimizing your life, combining intelligent task organization, fitness tracking, nutrition monitoring, and gamified progress tracking—all wrapped in a beautiful, offline-capable Progressive Web App.
 
@@ -8,10 +8,9 @@ Whether you're planning your day, tracking your workouts, counting calories and 
 
 - **🔥 All in one place**: Everything you need to boost productivity and optimize every detail of your life
 - **🤖 AI-Powered**: Let the AI do the heavy lifting for you with integrated AI assistant with multi-model support (GPT, Claude, Gemini)
-- **🏋️ Holistic Approach**: Not just tasks—track workouts, nutrition, and habits all in one beautiful interface
 - **📊 Gamification**: Earn points, maintain streaks, unlock achievements, and rate your experiences
 - **⚡ Lightning Fast**: Optimistic UI updates, instant feedback, and smooth animations for delightful UX
-- **🔐 Privacy First**: Only you can see your data — Firestore security rules restrict every read/write to its owner, and the free-text content you type (task titles/descriptions and note titles/content) is encrypted at rest with AES-256-GCM before it's ever stored
+- **🔐 Privacy First**: Only you can see your data — Firestore security rules restrict every read/write to its owner, and the free-text content you type (currently only tasks and notes) is encrypted at rest with AES-256-GCM before it's ever stored
 - **📱 True PWA**: Install on any device, get push notifications, and enjoy native app experience
 - **🌐 Offline-capable**: Task pages keep working after the app has loaded once; writes queue until you are back online
 
@@ -45,6 +44,7 @@ Prioritron offers flexible pricing tiers designed to scale with your productivit
 - 10 AI prompts per day
 - Analytics dashboard
 - Advanced insights
+- Barcode scanning
 - 7-day free trial available
 
 ### Ultra Plan ($14.99/month)
@@ -59,179 +59,169 @@ Prioritron offers flexible pricing tiers designed to scale with your productivit
 
 ### 1. Smart Task Management
 
-- **Comprehensive Task Creation**: Create tasks with titles, detailed descriptions, due dates, specific start times, and estimated durations.
-- **Visual Organization**: Assign custom icons and colors for quick visual identification and categorization.
-- **Prioritization**: Mark tasks as high-priority to keep focus on what matters most.
+- **Comprehensive Task Creation**: Create tasks with titles, detailed descriptions, due dates, specific start times, and estimated durations
+- **Visual Organization**: Assign custom icons and colors
+- **Prioritization**: Mark tasks as high-priority
 - **Advanced Scheduling**:
-  - **Repeating Tasks**: Define complex repetition rules, including daily/weekly intervals, specific days of the week, or a target number of completions per week.
-  - **Manual Rescheduling**: Easily delay tasks, with tracking for how many times a task has been postponed.
+  - **Repeating Tasks**: Define complex repetition rules, including daily/weekly intervals, specific days of the week, or a target number of completions per week
+  - **Manual Rescheduling**: Easily delay tasks, with tracking for how many times a task has been postponed
 - **Status & Progress Tracking**:
-  - Monitor task status as `pending`, `completed`, or `delayed`.
-  - Set reminders for important deadlines.
-- **Gamification & Feedback Loop**:
-  - **Experience Points**: Earn points for completing tasks, contributing to your overall progress and unlocking achievements.
-  - **Task Experience Rating**: After completing a task, rate your experience (`bad`, `okay`, `good`, `best`) to reflect on your performance and mood.
-- **Contextual Details**: Add optional information like location to your tasks.
-- **Risk Identification**: The system automatically flags tasks that are at risk of being missed, helping you proactively manage your workload.
+  - Monitor task status as `pending`, `completed`, `missed` or `delayed`.
+  - Set reminders for important deadlines
+  - **Experience Points**: Earn points for completing tasks, contributing to your overall progress and unlocking achievements
+  - **Task Experience Rating**: After completing a task, rate your experience (`bad`, `okay`, `good`, `best`)
+- **Contextual Details**: Add optional information like location to your tasks
+- **Risk Identification**: The system automatically flags tasks that are at risk of being missed
 
 ### 2. Advanced Tagging & Customization
 
-- **Custom Tags**: Create personalized tags for tasks (e.g., morning routine, fitness, personal, health, work).
+- **Custom Tags**: Create personalized tags for tasks (e.g., morning routine, fitness, personal, health, work)
 - **Color Coding**: Custom color palette for visual task organization.
-- **Icon Selection**: Choose from a wide range of task icons for better visual organization.
+- **Icon Selection**: Choose from a wide range of task icons for better visual organization
 
 ### 3. Advanced Notification System
 
-- **Smart Notifications**: Intelligent, contextual alerts based on task behavior and patterns.
 - **Multiple Notification Types**:
   - **Task Alerts**: Overdue, due soon, and at-risk notifications for repeating tasks.
-  - **Gamification Alerts**: Streak milestones, achievements unlocked, and weekly performance summaries.
-  - **System Alerts**: Important announcements and updates.
-- **Priority Levels**: Notifications are categorized as `URGENT`, `HIGH`, `MEDIUM`, or `LOW`, with clear visual indicators.
-- **Real-time Inbox**: A central hub for all notifications, featuring:
-  - Unread counts broken down by priority and type.
-  - Filtering and search capabilities.
-  - Archiving and read/unread status management.
-- **Automatic Generation & Cleanup**: Notifications are automatically created by system triggers and expired ones are removed to keep the inbox relevant.
+  - **Gamification Alerts**: Streak milestones, achievements unlocked, and weekly performance summaries
+  - **System Alerts**: Important announcements and updates (questionable about system messages)
+- **Priority Levels**: Notifications are categorized as `URGENT`, `HIGH`, `MEDIUM`, or `LOW`, with clear visual indicators
+- **Real-time Inbox**: A central hub for all notifications:
+  - Unread counts broken down by priority and type
+  - Filtering and search capabilities
+  - Archiving and read/unread status management
+- **Automatic Generation & Cleanup**: Notifications are automatically created by system triggers and expired ones are removed to keep the inbox relevant
 
 ### 4. Progress Tracking & Analytics
 
 - **Advanced Gamification Engine**:
-  - **Multi-Tier Achievement System**: Points milestones, streak milestones, and task completionist achievements with automatic unlocking.
-  - **Dynamic Streak Tracking**: Real-time streak monitoring with best streak records and consistency rewards.
-  - **Reward Points System**: Earn points for task completion with tiered milestone unlocks and progress visualization.
+  - **Multi-Tier Achievement System**: Points milestones, streak milestones, and task completionist achievements with automatic unlocking
+  - **Dynamic Streak Tracking**: Real-time streak monitoring with best streak records and consistency rewards
+  - **Reward Points System**: Earn points for task completion with tiered milestone unlocks and progress visualization
 - **Comprehensive Analytics Dashboard**:
-  - **Session Analytics**: Detailed tracking of app usage time, page views, and active engagement metrics.
-  - **Performance Insights**: Productivity scores, consistency ratings, and trend analysis with visual charts.
-  - **Task Analytics**: Event-based tracking of task creation, completion, delays, and behavioral patterns.
-  - **Time Management Intelligence**: On-time completion rates, delay analysis, and productive hour identification.
-- **Activity Audit Trail**: Immutable log of all user interactions with detailed task lifecycle tracking and historical data export.
-- **Progress Visualization**: Interactive charts showing productivity trends, point growth, achievement progress, and performance metrics over time.
+  - **Session Analytics**: Detailed tracking of app usage time, page views, and active engagement metrics
+  - **Performance Insights**: Productivity scores, consistency ratings, and trend analysis with visual charts
+  - **Task Analytics**: Event-based tracking of task creation, completion, delays, and behavioral patterns
+  - **Time Management Intelligence**: On-time completion rates, delay analysis, and productive hour identification
+- **Activity Audit Trail**: Immutable log of all user interactions with detailed task lifecycle tracking and historical data export
+- **Progress Visualization**: Interactive charts showing productivity trends, point growth, achievement progress, and performance metrics over time
 
 ### 5. Health & Nutrition Tracker
 
-- **Advanced Nutrition Intelligence**: Comprehensive nutrition tracking with barcode scanning, NutriScore ratings, and NOVA food processing classifications.
-- **Barcode Scanning**: Scan product barcodes for instant nutritional information, ingredients, and health ratings.
-- **Smart Food Database**: Extensive food library with detailed nutritional profiles, including micro-nutrients and health classifications.
-- **NutriScore & NOVA Classification**: Automatic food quality assessment with color-coded health ratings (A-E) and processing level indicators (1-4).
-- **Dietary Filters**: Identify vegan, vegetarian, and allergen-specific foods with comprehensive labeling.
+- **Advanced Nutrition Intelligence**: Comprehensive nutrition tracking with barcode scanning, NutriScore ratings, and NOVA food processing classifications
+- **Barcode Scanning**: Scan product barcodes for instant nutritional information, ingredients, and health ratings (using ZXing WASM)
+- **Smart Food Database**: Extensive food library with detailed nutritional profiles, including micro-nutrients and health classifications
+- **NutriScore & NOVA Classification**: Automatic food quality assessment with color-coded health ratings (A-E) and processing level indicators (1-4)
+- **Dietary Filters**: Identify vegan, vegetarian, and allergen-specific foods with comprehensive labeling
 - **Daily Nutrition Dashboard**:
-  - Visual progress bars showing calories, protein, carbs, and fat intake vs. personalized goals.
-  - Historical tracking with nutrition graphs and trends analysis.
+  - Visual progress bars showing calories, protein, carbs, and fat intake vs. personalized goals
+  - Historical tracking with nutrition graphs and trends analysis
 - **Advanced Meal Logging**:
   - Log foods for breakfast, lunch, dinner, or snacks with flexible serving sizes.
-  - Saved meals system for quick re-logging of favorite foods.
-  - Automatic nutrient calculation with detailed micro-nutrient tracking.
-- **Personalized Goal Setting**: Set custom daily targets for calories and macronutrients with smart recommendations.
+  - Saved meals system for quick re-logging of favorite foods
+  - Automatic nutrient calculation with detailed micro-nutrient tracking
+- **Personalized Goal Setting**: Set custom daily targets for calories and macronutrients with smart recommendations
 
 ### 6. Advanced Fitness Tracking Module
 
 - **Comprehensive Workout Logging**:
 
-  - **Workout Sessions**: Create and track detailed workout sessions with duration, exercises, sets, reps, and weights.
-  - **Exercise Library**: Access to extensive exercise database with categories and muscle group targeting.
-  - **Real-time Workout Timer**: Built-in workout duration tracking and rest timers between sets.
-  - **Session Notes**: Add personal notes and observations to each workout session.
+  - **Workout Sessions**: Create and track detailed workout sessions with duration, exercises, sets, reps, and weights
+  - **Exercise Library**: Access to extensive exercise database with categories and muscle group targeting
+  - **Real-time Workout Timer**: Built-in workout duration tracking and rest timers between sets
+  - **Session Notes**: Add personal notes and observations to each workout session
 
 - **Workout Templates**:
 
-  - **Template Creation**: Save frequently used workout routines as reusable templates.
-  - **Quick Start**: Launch workouts instantly from saved templates with pre-loaded exercises.
-  - **Template Management**: Organize and categorize workout templates by type (Push, Pull, Legs, etc.).
+  - **Template Creation**: Save frequently used workout routines as reusable templates
+  - **Quick Start**: Launch workouts instantly from saved templates with pre-loaded exercises
+  - **Template Management**: Organize and categorize workout templates by type (Push, Pull, Legs, etc.)
 
 - **Progress Visualization & Analytics**:
+  - **Interactive Charts**: Visualize progress over time with line graphs showing weight, volume, and strength trends
+  - **Exercise-Specific Analysis**: Detailed progress tracking for individual exercises with historical data and personal record tracking
 
-  - **Interactive Charts**: Visualize progress over time with line graphs showing weight, volume, and strength trends.
-  - **Exercise-Specific Analysis**: Detailed progress tracking for individual exercises with historical data and personal record tracking.
-
-- **Personal Records**: Automatic tracking of your best weights, reps, and performance metrics for each exercise.
+- **Personal Records**: Automatic tracking of your best weightsa and reps for each exercise
 
 - **Progressive Overload Intelligence**:
-
-  - **Smart Suggestions**: AI-powered recommendations based on previous performance data.
-  - **Last Performance Hints**: See your previous workout stats for each exercise to guide progressive overload.
-  - **Strength Progression**: Automatic suggestions for weight and rep increases based on historical data.
+  - **Last Performance Hints**: See your previous workout stats for each exercise to guide progressive overload
+  - **Strength Progression**: Automatic suggestions for weight and rep increases based on historical data
 
 - **Dashboard & Analytics**:
-  - **Weekly Overview**: Calendar view showing workout frequency and consistency.
-  - **Workout Statistics**: Track weekly workout count, total sessions, and average duration.
-  - **Recent Activity**: Quick access to recent workouts and performance summaries.
+  - **Weekly Overview**: Calendar view showing workout frequency and consistency
+  - **Workout Statistics**: Track weekly workout count, total sessions, and average duration
+  - **Recent Activity**: Quick access to recent workouts and performance summaries
 
 ### 7. AI Assistant & Automation
 
-- **Advanced Multi-Model AI**: Integrated AI assistant with support for cutting-edge models including GPT-4.1, GPT-5, Claude Sonnet 4, and Claude 3.5 Haiku.
-- **Multiple AI Providers**: Seamless integration with CrayonAI, ThesysAI, and OpenRouter for diverse AI capabilities and optimal performance.
-- **Intelligent Function Calling**: AI can directly interact with your tasks, retrieve data, create new tasks, update existing ones, and perform complex operations on your behalf.
-- **Contextual Productivity Coaching**: AI understands your current app context, task history, and productivity patterns to provide personalized recommendations and insights.
-- **Persistent Chat History**: Full conversation history with model tracking and function call results for continuous productivity coaching.
-- **Usage Limits & Billing**: Daily AI prompt limits based on subscription tier (1/day Base, 10/day Pro, unlimited Ultra) with automatic reset and usage tracking.
-- **Advanced Chat Features**: Model switching mid-conversation, function result visualization, and streaming responses for enhanced user experience.
+- **Advanced Multi-Model AI**: Integrated AI assistant with support for cutting-edge models including GPT-5, Claude Sonnet 4 and Gemini 3.1
+- **Multiple AI Providers**: Seamless integration with CrayonAI, ThesysAI
+- **Intelligent Function Calling**: AI can directly interact with your tasks, retrieve data, create new tasks, update existing ones, and perform complex operations on your behalf
+- **Contextual Productivity Coaching**: AI understands your current app context, task history, and productivity patterns to provide personalized recommendations and insights
+- **Persistent Chat History**: Full conversation history with model tracking and function call results for continuous productivity coaching
+- **Advanced Chat Features**: Model switching mid-conversation, function result visualization, and streaming responses for enhanced user experience
 
 ### 8. Notes
 
-- **Personal Notes**: A dedicated space to create, view, edit, and delete personal notes.
-- **Simple & Effective**: Each note has a title and content, with automatic tracking of the last update time.
+- **Personal Notes**: A dedicated space to create, view, edit, and delete personal notes
+- **Simple & Effective**: Each note has a title and content and its statistics
 
 ### 10. Tutorial & Onboarding
 
-- **Interactive Tutorial**: First-time user tutorial with step-by-step guidance through key features.
-- **Contextual Tooltips**: Helpful hints and tips throughout the app for feature discovery.
-- **Skip & Resume**: Users can skip tutorials or resume them later from settings.
+- **Interactive Tutorial**: First-time user tutorial with step-by-step guidance through key features
+- **Contextual Tooltips**: Helpful hints and tips throughout the app for feature discovery
+- **Skip & Resume**
 
 ### 11. User Profile & Settings
 
-- **Personalized Experience**: Customize notification preferences for reminders and achievements.
-- **Authentication Management**: Securely manage your account connected via Email/Password (inbox must be verified before first sign-in), Google, or GitHub.
-- **Activity Log**: Comprehensive audit trail of all task interactions and system events.
-- **Achievement Showcase**: Display unlocked achievements and progress toward new milestones.
+- **Personalized Experience**: Customize notification preferences for reminders and achievements
+- **Authentication Management**: Securely manage your account connected via Email/Password, Google, or GitHub
+- **Activity Log**: Comprehensive audit trail of all task interactions
 
 ### 12. Progressive Web App (PWA) & Offline Support
 
-- **Install as Native App**: Add Prioritron to your home screen on any device (iOS, Android, desktop) for app-like experience.
-- **Offline Functionality**: After a successful load, view and edit tasks without a connection; changes sync when you are back online.
-- **Offline Mode Detection**: Banner while offline; `/offline` only on a cold start with no cached app shell.
-- **Queued sync**: Pending task writes flush when the connection returns (not the Background Sync API).
-- **App Shortcuts**: Quick access shortcuts in the PWA for common actions (Add Task, Today's Tasks, Fitness, Health).
-- **Push Notifications**: Receive native push notifications for task reminders and achievements (when installed as PWA).
-- **App Update Notifications**: Automatic detection and user-friendly prompts for PWA updates with seamless installation.
-- **Installable**: Beautiful install prompt with app icon and description for easy installation.
+- **Install as Native App**: Add Prioritron to your home screen on any device (iOS, Android, desktop) for app-like experience
+- **Offline Functionality**: After a successful load, view and edit tasks without a connection; changes sync when you are back online
+- **Offline Mode Detection**: Banner while offline; `/offline` only on a cold start with no cached app shell
+- **Queued sync**: Pending task writes flush when the connection returns (not the Background Sync API)
+- **App Shortcuts**: Quick access shortcuts in the PWA for common actions (Add Task, Today's Tasks, Fitness, Health)
+- **Push Notifications**: Receive native push notifications for task reminders and achievements (when installed as PWA)
+- **App Update Notifications**: Automatic detection and user-friendly prompts for PWA updates with seamless installation
 
 ### 13. Today's View & Daily Planning
 
-- **Visual Time Grid**: Interactive 24-hour timeline view showing your scheduled tasks with visual time blocks.
-- **Scheduled vs Whole-Day Tasks**: Separate views for time-specific tasks and general daily tasks.
+- **Visual Time Grid**: Interactive 24-hour timeline view showing your scheduled tasks with visual time blocks
+- **Scheduled vs Whole-Day Tasks**: Separate views for time-specific tasks and general daily tasks
 - **Quick Task Creation**: Add tasks directly to today's schedule with one click.
-- **Time Block Visualization**: See your day at a glance with color-coded time blocks for each task.
-- **Priority Indicators**: Visual priority badges on scheduled tasks.
+- **Time Block Visualization**: See your day at a glance with color-coded time blocks for each task
 
 ### 14. User Experience & Design
 
-- **Modern Dark UI**: A clean, dark-themed interface designed for focus and clarity with carefully crafted color palette.
-- **Fully Responsive**: Pixel-perfect experience across desktop, tablet, and mobile devices with adaptive layouts.
-- **Intuitive Navigation**: Animated sidebar with logical organization and quick access to all features.
-- **Smooth Animations**: Polished micro-interactions powered by Framer Motion for delightful user experience.
+- **Modern Dark UI**: A clean, dark-themed interface designed for focus and clarity with carefully crafted color palette
+- **Fully Responsive**: Pixel-perfect experience across desktop, tablet, and mobile devices with adaptive layouts
+- **Intuitive Navigation**: Animated sidebar with logical organization and quick access to all features
+- **Smooth Animations**: Polished micro-interactions powered by Framer Motion for delightful user experience
 - **Performant & Fast**:
-  - **Optimistic UI Updates**: Instant feedback on actions like task creation or completion.
-  - **Seamless Loading**: Utilizes React Suspense for smooth loading transitions without jarring layout shifts.
-  - **Fast Navigation**: Built on the Next.js App Router for near-instant page loads.
-  - **Efficient Caching**: Smart client-side caching for improved performance.
-- **Accessibility**: Built with accessibility in mind—keyboard navigation, ARIA labels, and screen reader support.
-- **Visual Feedback**: Toast notifications, loading states, and error handling for clear communication.
-- **Customizable Themes**: Personal color preferences for tasks and visual organization.
+  - **Optimistic UI Updates**: Instant feedback on actions like task creation or completion
+  - **Seamless Loading**: Utilizes React Suspense for smooth loading transitions without jarring layout shifts
+  - **Efficient Caching**: Smart client-side caching for improved performance
+- **Accessibility**: Built with accessibility in mind—keyboard navigation, ARIA labels, and screen reader support
+- **Visual Feedback**: Toast notifications, loading states, and error handling for clear communication
+- **Customizable Themes**: Personal color preferences for tasks and visual organization
 
 ## 🛠️ Technology Stack
 
 ### Frontend
 
-- **Next.js 15+**: React framework with App Router for optimal performance and server-side rendering
-- **React 19+**: Latest version for modern UI development with concurrent features
-- **TypeScript**: Type-safe development with full type coverage
-- **Tailwind CSS**: Utility-first CSS framework for responsive design with custom theme
+- **Next.js 15+**
+- **React 19+**
+- **TypeScript**
+- **Tailwind CSS**
 - **Framer Motion**: Smooth animations, transitions, and micro-interactions
 - **Lucide React**: Modern, customizable icon library
 - **React Hot Toast**: Beautiful toast notifications with custom styling
 - **React Tooltip**: Enhanced tooltip functionality for better UX
-- **Recharts**: Interactive, responsive charts for fitness progress and analytics visualization
+- **Recharts**: Interactive, responsive charts
 - **Service Workers**: Asset caching, push notifications, and `/offline` as a cold-start fallback
 
 ### Backend & Authentication
@@ -281,7 +271,7 @@ Prioritron offers flexible pricing tiers designed to scale with your productivit
 - **`/offline`**: Cold-start page when the app is opened with no connection and no cached shell
 - **`/terms`**: Terms of Use (indexed)
 - **`/privacy`**: Privacy Policy (indexed)
-- **`/robots.txt`** and **`/sitemap.xml`**: generated at build time from [`app/robots.ts`](./app/robots.ts) and [`app/sitemap.ts`](./app/sitemap.ts) (see [Search indexing](#search-indexing-robotstxt--sitemap))
+- **`/robots.txt`** and **`/sitemap.xml`**: (see [Search indexing](#search-indexing-robotstxt--sitemap))
 
 ## 🔒 Security Features
 
@@ -306,33 +296,29 @@ Prioritron offers flexible pricing tiers designed to scale with your productivit
 
 ### 🔐 How Task/Note Encryption Works
 
-1. **On create/update**: `title`/`description` (tasks) and `title`/`content` (notes) are encrypted with `encryptField()` before the Firestore write. Each value gets its own random 96-bit IV, so identical text never produces identical ciphertext.
-2. **On read**: every read path (`getTasksByUserId`, `getTaskByTaskId`, `loadNotesByUserId`, and the activity log) runs the stored value through `decryptField()` before it reaches the rest of the app.
-3. **Backward compatibility**: `decryptField()` only decrypts values that carry the `enc:v1:` prefix. Any older, pre-encryption plaintext record is returned unchanged, so existing data keeps working without a manual migration — new writes are encrypted going forward.
-4. **Key management**: encryption uses a single symmetric key from the `DATA_ENCRYPTION_KEY` environment variable (a 64-char hex string, i.e. 32 bytes — generate one with `openssl rand -hex 32`). This key never leaves the server; only server-side code (Server Actions, `_lib` admin modules) can encrypt/decrypt.
-5. **Scope**: intentionally limited to free-text fields the user types. Workouts, nutrition data, and other structured records are **not** encrypted at rest today.
+1. **On create/update**: `title`/`description` (tasks) and `title`/`content` (notes) are encrypted with `encryptField()` before the Firestore write. Each value gets its own random 96-bit IV, so identical text never produces identical ciphertext
+2. **On read**: every read path (`getTasksByUserId`, `getTaskByTaskId`, `loadNotesByUserId`, and the activity log) runs the stored value through `decryptField()` before it reaches the rest of the app
+3. **Backward compatibility**: `decryptField()` only decrypts values that carry the `enc:v1:` prefix. Any older, pre-encryption plaintext record is returned unchanged, so existing data keeps working without a manual migration — new writes are encrypted going forward
+4. **Key management**: encryption uses a single symmetric key from the `DATA_ENCRYPTION_KEY` environment variable (a 64-char hex string, i.e. 32 bytes — generate one with `openssl rand -hex 32`). This key never leaves the server; only server-side code (Server Actions, `_lib` admin modules) can encrypt/decrypt
+5. **Scope**: intentionally limited to free-text fields the user types. Workouts, nutrition data, and other structured records are **not** encrypted at rest today
 
 ### Email verification
 
 Email/password sign-up does not create a usable session until the user confirms their inbox. Google and GitHub OAuth are unchanged (those providers already verify the address). Guest/anonymous sign-in is also unchanged.
 
-1. **Sign-up** ([`signUpWithEmailAndPasswordFirebase`](./app/_lib/auth-client.ts)): Firebase creates the user, `sendEmailVerification` fires with continue URL `https://prioritron.dev/login?verified=1` (or `http://localhost:3000/login?verified=1` in development), then the client signs out of Firebase. LoginForm shows “check your inbox” and a resend control.
-2. **Client sign-in gate**: `signInWithEmailAndPasswordFirebase` reloads the Firebase user and refuses NextAuth sign-in if `emailVerified` is false. It resends the verification email, then signs out.
-3. **Server gate**: `authorize()` in [`app/_lib/auth.ts`](./app/_lib/auth.ts) inspects the Firebase ID token. If `sign_in_provider === "password"` and `email_verified` is not set, it returns `null` — no JWT, even if the client is bypassed.
-4. **Resend**: `resendVerificationEmail` briefly signs in with the given credentials only to call `sendEmailVerification`, then signs out again.
-5. **After the link**: Firebase’s action URL lands on `/login?verified=1`. LoginForm shows “Email confirmed. Sign in below.” and strips the query param.
-
-### Password reset
-
-Forgot-password is email/password only (Google, GitHub, and guest accounts have no Firebase password). From `/login` in sign-in mode, the user types their email and clicks **Forgot password?**; [`sendPasswordResetFirebase`](./app/_lib/auth-client.ts) calls Firebase `sendPasswordResetEmail` with continue URL `https://prioritron.dev/login?reset=1` (localhost in development). Firebase’s hosted reset page handles the oobCode; LoginForm then shows “Password reset successful” and strips `?reset=1`. The message never confirms whether the address is registered. Signed-in password users can also **Change Password** on `/webapp/profile` (card is hidden unless Firebase `providerData` includes `"password"`): [`changePasswordFirebase`](./app/_lib/auth-client.ts) reauthenticates with the current password, then `updatePassword`.
+1. **Sign-up** ([`signUpWithEmailAndPasswordFirebase`](./app/_lib/auth-client.ts)): Firebase creates the user, `sendEmailVerification` fires with continue URL `https://prioritron.dev/login?verified=1` (or `http://localhost:3000/login?verified=1` in development), then the client signs out of Firebase. LoginForm shows “check your inbox” and a resend control
+2. **Client sign-in gate**: `signInWithEmailAndPasswordFirebase` reloads the Firebase user and refuses NextAuth sign-in if `emailVerified` is false. It resends the verification email, then signs out
+3. **Server gate**: `authorize()` in [`app/_lib/auth.ts`](./app/_lib/auth.ts) inspects the Firebase ID token. If `sign_in_provider === "password"` and `email_verified` is not set, it returns `null` — no JWT, even if the client is bypassed
+4. **Resend**: `resendVerificationEmail` briefly signs in with the given credentials only to call `sendEmailVerification`, then signs out again
+5. **After the link**: Firebase’s action URL lands on `/login?verified=1`. LoginForm shows “Email confirmed. Sign in below.” and strips the query param
 
 ### Branding (OAuth consent + site identity)
 
 Google’s OAuth brand verification compares the consent-screen **app name**, **logo**, and **homepage** to the live site.
 
-- **Homepage** for the consent screen is `https://prioritron.dev`. It must be public, describe the product, and link the **same** Privacy Policy URL as the consent screen ([`/privacy`](./app/privacy/page.tsx)). Ownership of `prioritron.dev` is verified in [Google Search Console](https://search.google.com/search-console) with a **DNS TXT** record at the registrar (Spaceship), using the same Google account as the Cloud project. Leave that TXT record in place.
+- **Homepage** for the consent screen is `https://prioritron.dev`. It must be public, describe the product, and link the **same** Privacy Policy URL as the consent screen ([`/privacy`](./app/privacy/page.tsx)). Ownership of `prioritron.dev` is verified in [Google Search Console](https://search.google.com/search-console) with a **DNS TXT** record at the registrar (Spaceship), using the same Google account as the Cloud project. Leave that TXT record in place
 - **Logo** files: [`public/icon.svg`](./public/icon.svg) (vector) and [`app/icon.png`](./app/icon.png) (raster). Served sizes live in `public/icon-192.png`, `public/icon-512.png`, and `public/favicon-32.png`. The OAuth upload should be a **square PNG**, ideally 120×120, **the same hex-P mark** used on the homepage. Do not use Google icons or trademarks. Refer to Google in **plain text** only (“Sign in with Google”, “integrates with Google sign-in”).
-- After a logo or homepage change, cancel any in-progress brand verification, then resubmit **once** both the unique logo and domain verification are in place.
+- After a logo or homepage change, cancel any in-progress brand verification, then resubmit **once** both the unique logo and domain verification are in place
 
 ## Search indexing (`robots.txt` + sitemap)
 
@@ -389,8 +375,7 @@ These two App Router files are how Google (and other crawlers) learn what they m
 
 ## Scheduled jobs (cron-job.org)
 
-Two secret-protected endpoints are pinged by [cron-job.org](https://cron-job.org) (free). Vercel Hobby cron can only run **once per day**, which is enough for a backup cleanup but useless for “task starts in 15 minutes” reminders — those must stay on the external scheduler.
-
+Two secret-protected endpoints are pinged by [cron-job.org](https://cron-job.org) (free).
 Both jobs send:
 
 ```
@@ -472,29 +457,6 @@ interface AppUser {
   anonymousCreatedAt?: number;
 }
 ```
-
-
-## 🌐 Browser Support & Compatibility
-
-Prioritron is built with modern web standards and supports all major browsers:
-
-| Browser              | Version | PWA Support | Offline Mode | Notes                           |
-| -------------------- | ------- | ----------- | ------------ | ------------------------------- |
-| **Chrome**           | 90+     | ✅ Full     | ✅ Full      | Recommended for best experience |
-| **Edge**             | 90+     | ✅ Full     | ✅ Full      | Chromium-based, full support    |
-| **Firefox**          | 88+     | ⚠️ Partial  | ✅ Full      | PWA install may vary by OS      |
-| **Safari**           | 14+     | ⚠️ Limited  | ✅ Full      | iOS: Add to Home Screen         |
-| **Opera**            | 76+     | ✅ Full     | ✅ Full      | Chromium-based                  |
-| **Samsung Internet** | 14+     | ✅ Full     | ✅ Full      | Android devices                 |
-
-**Requirements:**
-
-- JavaScript enabled
-- LocalStorage and IndexedDB support
-- Service Worker support for offline functionality
-- Modern CSS Grid and Flexbox support
-
-## 🎯 Use Cases
 
 ## 🤝 Contributing
 

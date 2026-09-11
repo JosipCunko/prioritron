@@ -87,6 +87,14 @@ export function getEffectivePlan(
   return currentPlan;
 }
 
+export function canUseBarcodeScanning(
+  currentPlan: SubscriptionPlan,
+  planExpiresAt?: number | null
+): boolean {
+  const plan = getEffectivePlan(currentPlan, planExpiresAt);
+  return plan === "pro" || plan === "ultra";
+}
+
 export function canMakePrompt(
   plan: SubscriptionPlan,
   promptsToday: number

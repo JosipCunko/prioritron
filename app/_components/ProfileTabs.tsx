@@ -54,7 +54,12 @@ const PLAN_DETAILS: Record<
     name: "Pro",
     icon: <Sparkles className="w-5 h-5" />,
     color: "text-primary-400",
-    features: ["10 AI prompts/day", "Analytics dashboard", "Advanced insights"],
+    features: [
+      "10 AI prompts/day",
+      "Analytics dashboard",
+      "Advanced insights",
+      "Barcode scanning",
+    ],
   },
   ultra: {
     name: "Ultra",

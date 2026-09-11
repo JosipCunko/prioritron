@@ -12,6 +12,8 @@ import {
 import { revalidatePath, revalidateTag } from "next/cache";
 import { CacheTags } from "../_utils/serverCache";
 import { startOfDay, subMonths } from "date-fns";
+import { getUserById } from "./user-admin";
+import { canUseBarcodeScanning } from "./stripe";
 
 export async function createSavedMeal(
   formData: FormData,
@@ -38,7 +40,7 @@ export async function createSavedMeal(
       .map((ingredient) => ingredient.trim())
       .filter((ingredient) => ingredient.length > 0);
 
-    // Barcode scanner fields
+    // Barcode scanner fields (Pro/Ultra only)
     const barcode = formData.get("barcode") as string | null;
     const quantity = formData.get("quantity") as string | null;
     const nutriScore = formData.get("nutriScore") as
@@ -58,6 +60,15 @@ export async function createSavedMeal(
     const nutrientLevels: NutrientLevels | null = nutrientLevelsStr
       ? JSON.parse(nutrientLevelsStr)
       : null;
+
+    let allowBarcode = false;
+    if (barcode) {
+      const user = await getUserById(session.user.id);
+      allowBarcode = Boolean(
+        user &&
+          canUseBarcodeScanning(user.currentPlan || "base", user.planExpiresAt),
+      );
+    }
 
     if (
       !name ||
@@ -85,14 +96,14 @@ export async function createSavedMeal(
       },
       ingredients,
       ...(readyInMinutes && { readyInMinutes }),
-      // Barcode scanner fields
-      ...(barcode && { barcode }),
-      ...(quantity && { quantity }),
-      ...(nutriScore && { nutriScore }),
-      ...(novaGroup && { novaGroup }),
-      ...(isVegan && { isVegan }),
-      ...(isVegetarian && { isVegetarian }),
-      ...(nutrientLevels && { nutrientLevels }),
+      // Barcode scanner fields (ignored unless Pro/Ultra)
+      ...(allowBarcode && barcode && { barcode }),
+      ...(allowBarcode && quantity && { quantity }),
+      ...(allowBarcode && nutriScore && { nutriScore }),
+      ...(allowBarcode && novaGroup && { novaGroup }),
+      ...(allowBarcode && isVegan && { isVegan }),
+      ...(allowBarcode && isVegetarian && { isVegetarian }),
+      ...(allowBarcode && nutrientLevels && { nutrientLevels }),
       createdAt: Date.now(),
     };
 

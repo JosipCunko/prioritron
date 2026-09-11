@@ -1,6 +1,6 @@
 {
   "name": "prioritron",
-  "version": "19.1.0",
+  "version": "19.1.1",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development next dev",
@@ -8,8 +8,7 @@
     "build:analyze": "cross-env ANALYZE=true NODE_ENV=production next build",
     "start": "cross-env NODE_ENV=production next start",
     "lint": "next lint",
-    "update-version": "node update-version.js",
-    "postinstall": "node scripts/patch-openui-foldable-section.mjs"
+    "update-version": "node update-version.js"
   },
   "dependencies": {
     "@crayonai/react-core": "^0.7.7",

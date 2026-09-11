@@ -5,6 +5,24 @@ import { authOptions } from "../../_lib/auth";
 import HealthSkeleton from "../../_components/skeleton/HealthSkeleton";
 import HealthClientUI from "./HealthClientUI";
 import { Heart } from "lucide-react";
+import { getUserById } from "../../_lib/user-admin";
+import { canUseBarcodeScanning } from "../../_lib/stripe";
+
+async function HealthWithPlan({ userId }: { userId: string }) {
+  const user = await getUserById(userId);
+  if (!user) {
+    redirect("/login");
+  }
+
+  return (
+    <HealthClientUI
+      canScanBarcode={canUseBarcodeScanning(
+        user.currentPlan || "base",
+        user.planExpiresAt,
+      )}
+    />
+  );
+}
 
 export default async function HealthPage() {
   const session = await getServerSession(authOptions);
@@ -25,7 +43,7 @@ export default async function HealthPage() {
           </p>
         </div>
         <Suspense fallback={<HealthSkeleton />}>
-          <HealthClientUI />
+          <HealthWithPlan userId={session.user.id} />
         </Suspense>
       </div>
     </div>

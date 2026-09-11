@@ -57,7 +57,11 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-export default function HealthClientUI() {
+export default function HealthClientUI({
+  canScanBarcode,
+}: {
+  canScanBarcode: boolean;
+}) {
   const [isPending, startTransition] = useTransition();
   const [state, dispatch] = useReducer(reducer, initialState);
   const dispatchField = useCallback(
@@ -400,7 +404,7 @@ export default function HealthClientUI() {
 
       <ModalContext.Provider value={saveMealModalContextValue}>
         <Modal.Window name="save-meal">
-          <AddSavedMeal />
+          <AddSavedMeal canScanBarcode={canScanBarcode} />
         </Modal.Window>
       </ModalContext.Provider>
 

@@ -38,8 +38,10 @@ const novaDescriptions: Record<number, string> = {
 
 export default function AddSavedMeal({
   onCloseModal,
+  canScanBarcode,
 }: {
   onCloseModal?: () => void;
+  canScanBarcode: boolean;
 }) {
   const [ingredients, setIngredients] = useState([""]);
   const [isPending, startTransition] = useTransition();
@@ -84,6 +86,8 @@ export default function AddSavedMeal({
   const handleBarcodeUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    if (!canScanBarcode) return;
+
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -246,26 +250,35 @@ export default function AddSavedMeal({
             </div>
 
             {!scannedProduct ? (
-              <div
-                className="border-2 border-dashed border-background-400 rounded-lg p-6 text-center hover:border-primary-500 transition-colors cursor-pointer"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <Scan className="w-10 h-10 mx-auto mb-3 text-text-gray" />
-                <p className="text-text-low font-medium mb-1">
-                  Upload barcode image
-                </p>
-                <p className="text-text-gray text-sm">
-                  Take a photo of a food barcode to auto-fill nutrition info
-                </p>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  capture="environment"
-                  className="hidden"
-                  onChange={handleBarcodeUpload}
-                />
-              </div>
+              canScanBarcode ? (
+                <div
+                  className="border-2 border-dashed border-background-400 rounded-lg p-6 text-center hover:border-primary-500 transition-colors cursor-pointer"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Scan className="w-10 h-10 mx-auto mb-3 text-text-gray" />
+                  <p className="text-text-low font-medium mb-1">
+                    Upload barcode image
+                  </p>
+                  <p className="text-text-gray text-sm">
+                    Take a photo of a food barcode to auto-fill nutrition info
+                  </p>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={handleBarcodeUpload}
+                  />
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-background-400 rounded-lg p-6 text-center cursor-not-allowed">
+                  <Scan className="w-10 h-10 mx-auto mb-3 text-text-gray" />
+                  <p className="text-text-gray text-sm">
+                    Upgrade to Pro to use barcode scanning
+                  </p>
+                </div>
+              )
             ) : (
               <div className="bg-background-700 rounded-lg p-4 space-y-3">
                 <div className="flex items-start gap-3">
@@ -322,7 +335,7 @@ export default function AddSavedMeal({
                 </div>
 
                 <p className="text-xs text-text-gray flex items-center gap-1 text-pretty">
-                  <AlertCircle className="w-3 h-3" />
+                  <AlertCircle className="w-3 h-3 min-w-3 mr-1" />
                   Data from Open Food Facts. Review and edit before saving.
                 </p>
               </div>

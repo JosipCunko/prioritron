@@ -7,6 +7,8 @@ import {
   NutrientLevels,
   NutrientLevel,
 } from "@/app/_types/types";
+import { getUserById } from "@/app/_lib/user-admin";
+import { canUseBarcodeScanning } from "@/app/_lib/stripe";
 
 const OFF_API_BASE = "https://world.openfoodfacts.org/api/v2/product";
 const USER_AGENT = "Prioritron/1.0 (prioritron-health-scanner)";
@@ -168,6 +170,18 @@ export async function POST(request: NextRequest) {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
+
+    const user = await getUserById(session.user.id);
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    if (!canUseBarcodeScanning(user.currentPlan || "base", user.planExpiresAt)) {
+      return NextResponse.json(
+        { error: "Barcode scanning requires a Pro or Ultra plan." },
+        { status: 403 }
+      );
     }
 
     const formData = await request.formData();
