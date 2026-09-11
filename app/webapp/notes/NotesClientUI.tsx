@@ -9,7 +9,7 @@ import {
 } from "@/app/_lib/notesActions";
 import Button from "@/app/_components/reusable/Button";
 import Input from "@/app/_components/reusable/Input";
-import { PlusCircle, Save, Trash2, XCircle, Edit3, Sigma } from "lucide-react";
+import { PlusCircle, Save, Trash2, XCircle, SquarePen, Sigma } from "lucide-react";
 import { errorToast, formatDateTime, successToast } from "@/app/_utils/utils";
 import AutoGrowTextarea from "@/app/_components/notes/AutoGrowTextarea";
 import MathSymbolsModal from "@/app/_components/notes/MathSymbolsModal";
@@ -334,7 +334,7 @@ export default function NotesClientUI({
                         variant="tag"
                         className="text-text-gray hover:text-primary-400 p-2"
                       >
-                        <Edit3 size={16} />
+                        <SquarePen size={16} />
                       </Button>
                       <Button
                         onClick={(e) => {

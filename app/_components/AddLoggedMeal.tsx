@@ -17,8 +17,10 @@ type SavedMealItem = Omit<SavedMeal, "barcode" | "quantity" | "userId">;
 
 export default function AddLoggedMeal({
   onCloseModal,
+  onLogged,
 }: {
   onCloseModal?: () => void;
+  onLogged?: () => void;
 }) {
   const [savedMeals, setSavedMeals] = useState<SavedMealItem[]>([]);
   const [selectedMeal, setSelectedMeal] = useState<SavedMealItem | null>(null);
@@ -41,7 +43,7 @@ export default function AddLoggedMeal({
     );
   }, [savedMeals, searchQuery]);
 
-  const { cache, invalidateCache } = useMemo(() => {
+  const { cache } = useMemo(() => {
     return clientCache(
       "savedMeals",
       5,
@@ -54,7 +56,7 @@ export default function AddLoggedMeal({
   }, []);
 
   useEffect(() => {
-    cache();
+    cache({ force: true });
   }, [cache]);
 
   // Calculate nutrients based on serving size
@@ -85,7 +87,8 @@ export default function AddLoggedMeal({
         successToast(result.message || "Meal logged successfully");
         setSelectedMeal(null);
         setServingSize(100);
-        invalidateCache();
+        onLogged?.();
+        onCloseModal?.();
       } else {
         errorToast(result.error || "Failed to log meal");
       }

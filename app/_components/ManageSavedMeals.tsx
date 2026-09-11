@@ -43,7 +43,7 @@ export default function ManageSavedMeals({
   }, []);
 
   useEffect(() => {
-    cache();
+    cache({ force: true });
   }, [cache]);
 
   const filteredMeals = useMemo(() => {

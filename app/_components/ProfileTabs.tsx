@@ -63,7 +63,6 @@ const PLAN_DETAILS: Record<
     features: [
       "Unlimited AI prompts",
       "Early access features",
-      "Priority support",
     ],
   },
 };

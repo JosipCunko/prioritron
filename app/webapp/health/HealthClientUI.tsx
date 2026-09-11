@@ -116,12 +116,14 @@ export default function HealthClientUI() {
     }),
     [manageMealsModalOpenName],
   );
+  const [nutritionRefreshKey, setNutritionRefreshKey] = useState(0);
 
   const loadDailyNutritionSummary = useCallback(async () => {
     startTransition(async () => {
       try {
         const res = await fetch("/api/health/dailySummary", {
           method: "POST",
+          cache: "no-store",
           body: JSON.stringify({
             date: state.currentDate,
           }),
@@ -136,6 +138,11 @@ export default function HealthClientUI() {
       }
     });
   }, [state.currentDate, dispatchField]);
+
+  const refreshNutrition = useCallback(() => {
+    void loadDailyNutritionSummary();
+    setNutritionRefreshKey((key) => key + 1);
+  }, [loadDailyNutritionSummary]);
 
   const loadUserNutritionGoals = useCallback(async () => {
     startTransition(async () => {
@@ -168,7 +175,7 @@ export default function HealthClientUI() {
         );
         successToast("Nutrition goals updated!");
         closeGoalsModal();
-        await loadDailyNutritionSummary();
+        refreshNutrition();
       } catch (error) {
         console.error("Error updating goals:", error);
         errorToast("Failed to update goals");
@@ -294,7 +301,7 @@ export default function HealthClientUI() {
         </div>
       </div>
 
-      <NutritionGraphs />
+      <NutritionGraphs refreshKey={nutritionRefreshKey} />
 
       {/* Logged Meals */}
       <div className="bg-background-600 border border-background-500 rounded-xl shadow-lg p-6">
@@ -309,7 +316,7 @@ export default function HealthClientUI() {
               <LoggedMealCard
                 key={loggedMeal.id}
                 loggedMeal={loggedMeal}
-                onActionComplete={loadDailyNutritionSummary}
+                onActionComplete={refreshNutrition}
               />
             ))
           ) : (
@@ -399,7 +406,7 @@ export default function HealthClientUI() {
 
       <ModalContext.Provider value={logMealModalContextValue}>
         <Modal.Window name="log-meal">
-          <AddLoggedMeal />
+          <AddLoggedMeal onLogged={refreshNutrition} />
         </Modal.Window>
       </ModalContext.Provider>
 

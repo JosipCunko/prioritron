@@ -25,9 +25,9 @@ export default async function LandingPage() {
         <Navbar />
         <main className="grow">
           <HeroSection />
+          <Features />
           <ImageSection />
           <StatsSection />
-          <Features />
           <ProgrammingFeatures />
           <PricingSection />
           <CallToActionSection />

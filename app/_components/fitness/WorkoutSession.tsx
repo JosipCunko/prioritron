@@ -9,7 +9,7 @@ import {
   Save,
   Search,
   X,
-  Edit,
+  SquarePen,
   ThumbsUp,
   ThumbsDown,
   Clock,
@@ -296,7 +296,7 @@ export default function WorkoutSession({
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <Edit className="w-5 h-5" />
+                <SquarePen className="w-5 h-5" />
                 <Input
                   name="name"
                   type="text"

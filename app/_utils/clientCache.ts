@@ -1,3 +1,9 @@
+export function invalidateClientCache(cacheKey: string) {
+  if (typeof window === "undefined") return;
+  sessionStorage.removeItem(cacheKey);
+  sessionStorage.removeItem(`${cacheKey}Time`);
+}
+
 /**
  *
  * @param cacheKey
@@ -17,31 +23,31 @@ export function clientCache<T>(
   loadingStateSetterFn?: (state: boolean) => void,
   notificationErrorFn?: (message: string) => void
 ) {
-  async function cache() {
-    const cachedData = sessionStorage.getItem(cacheKey);
-    if (cachedData) {
-      try {
-        const parsed = JSON.parse(cachedData);
-        const cacheTime = sessionStorage.getItem(`${cacheKey}Time`);
-        const now = Date.now();
+  async function cache(options?: { force?: boolean }) {
+    if (!options?.force) {
+      const cachedData = sessionStorage.getItem(cacheKey);
+      if (cachedData) {
+        try {
+          const parsed = JSON.parse(cachedData);
+          const cacheTime = sessionStorage.getItem(`${cacheKey}Time`);
+          const now = Date.now();
 
-        if (
-          cacheTime &&
-          now - parseInt(cacheTime) < revalidateTime * 60 * 1000
-        ) {
-          stateSetterFn(parsed);
-          return;
+          if (
+            cacheTime &&
+            now - parseInt(cacheTime) < revalidateTime * 60 * 1000
+          ) {
+            stateSetterFn(parsed);
+            return;
+          }
+        } catch (error) {
+          console.error("Error parsing cached data:", error);
         }
-      } catch (error) {
-        console.error("Error parsing cached data:", error);
       }
     }
     loadingStateSetterFn?.(true);
     try {
       const response = await fetch(serverUrl, {
-        headers: {
-          "Cache-Control": `max-age=${revalidateTime * 60}`,
-        },
+        cache: "no-store",
       });
       if (!response.ok) {
         throw new Error("Failed to fetch in the client cache");
@@ -61,9 +67,6 @@ export function clientCache<T>(
 
   return {
     cache,
-    invalidateCache: () => {
-      sessionStorage.removeItem(cacheKey);
-      sessionStorage.removeItem(`${cacheKey}Time`);
-    },
+    invalidateCache: () => invalidateClientCache(cacheKey),
   };
 }

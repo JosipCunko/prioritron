@@ -63,7 +63,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
           className="inline-block px-3 py-1 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-300 text-xs font-mono mb-4 uppercase tracking-widest"
         >
-          System Ready v19.0
+          System Ready v19.1
         </motion.div>
 
         <motion.div
@@ -93,7 +93,7 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.5 }}
         >
           <DecryptedText
-            text="Your all-in-one productivity app. Organize, prioritize, and execute tasks with ultimate discipline and control. The ultimate command center for your daily operations."
+            text="Your all-in-one productivity app. Organize, prioritize, and execute tasks with maximum discipline and control. The ultimate command center for your daily operations."
             animateOn="view"
             sequential
             useOriginalCharsOnly

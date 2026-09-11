@@ -8,7 +8,8 @@ import { refreshPendingCount } from "@/app/_lib/offlineTaskQueue";
 /**
  * Copies the task list the webapp layout already fetches into the client store
  * and the IndexedDB cache, so the app has data to render when the network goes
- * away mid-session. The server render stays the source of truth while online.
+ * away mid-session. Stale layout payloads are ignored by the store so a delay
+ * on /tasks is not overwritten when navigating back to /today.
  */
 export default function TaskStoreHydrator({
   userId,

@@ -8,7 +8,7 @@ import {
   Trash2,
   MessageSquarePlus,
   MessageSquare,
-  Edit,
+  SquarePen,
   X,
 } from "lucide-react";
 import { successToast, errorToast } from "@/app/_utils/utils";
@@ -232,9 +232,7 @@ export default function ChatSidebar({
                   </div>
                 </div>
               ) : (
-                <Link
-                  href={`/webapp/ai/${chat.id}`}
-                  onClick={() => onOpenChange(false)}
+                <div
                   className={`
                     flex items-center gap-2 p-3 rounded-lg min-w-0
                     transition-all duration-200 group
@@ -245,10 +243,14 @@ export default function ChatSidebar({
                     }
                   `}
                 >
-                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <Link
+                    href={`/webapp/ai/${chat.id}`}
+                    onClick={() => onOpenChange(false)}
+                    className="flex items-center gap-2 flex-1 min-w-0"
+                  >
                     <MessageSquare size={16} className="flex-shrink-0" />
                     <span className="text-sm truncate">{chat.title}</span>
-                  </div>
+                  </Link>
                   <div className="flex items-center gap-0.5 shrink-0">
                     <button
                       type="button"
@@ -260,7 +262,7 @@ export default function ChatSidebar({
                       className="p-1.5 rounded hover:bg-primary-500/20 transition-all md:opacity-0 md:group-hover:opacity-100"
                       aria-label="Rename chat"
                     >
-                      <Edit
+                      <SquarePen
                         size={14}
                         className="text-primary-400 hover:text-primary-300"
                       />
@@ -277,7 +279,7 @@ export default function ChatSidebar({
                       />
                     </button>
                   </div>
-                </Link>
+                </div>
               )}
             </div>
           ))

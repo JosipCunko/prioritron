@@ -18,13 +18,13 @@ import {
   ListChecks,
   BarChart3,
   Sparkles,
-  Rocket,
   LucideIcon,
   Brain,
   Dumbbell,
-  ChartSpline,
   Paintbrush,
   Apple,
+  CalendarDays,
+  Bell,
 } from "lucide-react";
 import {
   DayOfWeek,
@@ -64,19 +64,19 @@ export { MONDAY_START_OF_WEEK } from "../_lib/repeatingTasks";
 export const stats = [
   {
     icon: CardSpecificIcons.User,
-    value: 7,
+    value: 10,
     label: "Active Users",
-    suffix: "",
+    suffix: "+",
   },
   {
     icon: CardSpecificIcons.MarkComplete,
-    value: 460,
+    value: 500,
     label: "Total tasks Created",
     suffix: "+",
   },
   {
     icon: CardSpecificIcons.Time,
-    value: 7200,
+    value: 17000,
     label: "Tasks reviewed",
     suffix: "",
   },
@@ -94,54 +94,72 @@ export const images = [
     alt: "Add as many tasks as you want.",
     title: "Add New Task",
     category: "Management",
+    width: 1266,
+    height: 931,
   },
   {
     src: "/calendar.png",
     alt: "View your calendar and see upcoming tasks.",
     title: "View Your Calendar",
     category: "Planning",
+    width: 1004,
+    height: 849,
   },
   {
     src: "/taskCustomization.png",
     alt: "Customize your tasks with many, many options.",
     title: "Customize Your Tasks",
     category: "Customization",
+    width: 841,
+    height: 776,
   },
   {
     src: "/profile.png",
     alt: "View your profile and see your statistics.",
     title: "Manage Your Profile",
     category: "Analytics",
+    width: 1082,
+    height: 817,
   },
   {
     src: "/tasks.png",
     alt: "All your tasks in one place.",
     title: "Manage Your Tasks",
     category: "Organization",
+    width: 1087,
+    height: 845,
   },
   {
     src: "/today.png",
     alt: "Organize your tasks for today.",
     title: "Tasks for Today",
     category: "Focus",
+    width: 1274,
+    height: 793,
   },
   {
     src: "/health.png",
     alt: "Manage your health and nutrition.",
     title: "Keep track of your health",
     category: "Health",
+    width: 1057,
+    height: 840,
   },
   {
     src: "/fitness.png",
     alt: "Track your workouts and monitor your fitness progress.",
     title: "Fitness progress insights",
     category: "Fitness",
+    width: 996,
+    height: 851,
   },
   {
     src: "/ai.png",
     alt: "Get super productive with AI.",
     title: "AI assistant",
     category: "AI",
+    width: 1004,
+    height: 857,
   },
 ];
 
@@ -150,43 +168,55 @@ export const features = [
     icon: ListChecks,
     label: "Smart Task Management",
     description:
-      "Create tasks with many options, enjoy auto-rescheduling for missed ones, track statuses, set repeating options and earn experience points for completion.",
+      "Create tasks with due dates, start times, durations, and customization. Track statuses, set repeating options, auto-reschedule missed work, flag at-risk tasks, and earn points when you complete them.",
+  },
+  {
+    icon: CalendarDays,
+    label: "Today View & Calendar",
+    description:
+      "Plan the day on a 24-hour time grid with scheduled and whole-day tasks, then zoom out to the calendar to see what is coming next — or what came before.",
   },
   {
     icon: Paintbrush,
-    label: "Advanced Tagging & Customization",
+    label: "Tags & Customization",
     description:
-      "Organize with custom tags, a versatile color palette, priority focus tags, and a wide selection of task icons.",
+      "Organize with custom tags, a full color palette, priority flags, and a wide range of icons so every task is instantly recognizable.",
   },
   {
-    icon: ChartSpline,
-    label: "Super advanced features",
+    icon: Apple,
+    label: "Health & Nutrition",
     description:
-      "Fitness and nutrition tracking, barcode scanning, notes, advanced notifications, tutorial, subscription management and more.",
+      "Log and save meals, scan barcodes, track calories and macros against daily goals, save favorites, see NutriScore and NOVA ratings, and much more.",
   },
   {
-    icon: BarChart3,
-    label: "Progress Tracking & Analytics",
+    icon: Dumbbell,
+    label: "Fitness Tracking",
     description:
-      "Monitor your consistency with streak visuals, earn reward points, and view detailed performance metrics, analytics...",
-  },
-  {
-    icon: Sparkles,
-    label: "Seamless User Experience",
-    description:
-      "Enjoy a modern, eye-friendly dark theme, fully responsive design for all devices, intuitive navigation, and smooth loading states for a delightful experience.",
-  },
-  {
-    icon: Rocket,
-    label: "Optimized & Modern Tech",
-    description:
-      "Built with Next.js 15 (App Router), React 19, and Firebase for a fast, scalable, and reliable solution with real-time updates.",
+      "Log workouts with sets, reps, weights, and endurance holds, reuse templates, hit personal records, and follow progressive overload suggestions — all with progress tracking graphs.",
   },
   {
     icon: Brain,
-    label: "AI Integration",
+    label: "AI Assistant",
     description:
-      "Get super productive with AI, ask him anything, receive personalized recommendations with rich UI elements.",
+      "Chat with GPT, Claude, and Gemini. The assistant can create and update tasks, pull your data, and coach you in the context of what you are working on with an AI user interface you've never seen before.",
+  },
+  {
+    icon: BarChart3,
+    label: "Analytics & Gamification",
+    description:
+      "Streaks, achievements, and reward points, plus a dashboard for productivity scores, personal growth progress, on-time rates, and how you actually spend your time.",
+  },
+  {
+    icon: Bell,
+    label: "Inbox, Notes & Offline PWA",
+    description:
+      "Priority notifications, a dedicated notes workspace, and a true PWA: install it, get reminders, and keep editing tasks offline until you reconnect.",
+  },
+  {
+    icon: Sparkles,
+    label: "Seamless UX & Modern Stack",
+    description:
+      "A focused dark UI with smooth animations, optimistic updates, and instant navigation — built on Next.js 15, React 19, and Firebase, with AES-256 encryption for your data.",
   },
 ];
 
@@ -800,6 +830,27 @@ export function generateTaskTypes(allTasks: Task[]) {
     pendingPriorityTasks,
     completedTasks,
   };
+}
+
+/**
+ * Tasks that belong on Today's Plan: due today (or already overdue), repeating
+ * tasks due today, and anything completed today. Delayed/rescheduled work with
+ * a future due date is excluded so it does not linger after a delay.
+ */
+export function isRelevantForTodayPlan(task: Task): boolean {
+  if (task.status === "completed") {
+    return Boolean(task.completedAt && isToday(task.completedAt));
+  }
+
+  if (task.isRepeating) {
+    return canCompleteRepeatingTaskNow(task).isDueToday;
+  }
+
+  return isToday(task.dueDate) || isPast(task.dueDate);
+}
+
+export function relevantTodayTasks(tasks: Task[]): Task[] {
+  return tasks.filter(isRelevantForTodayPlan);
 }
 
 export function getTimeString(startTime: string, endTime: string): string {

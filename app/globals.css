@@ -694,16 +694,13 @@ input[type="range"]:focus::-moz-range-thumb {
   --c1-border: var(--color-divider);
   font-family: var(--font-plex-mono), "IBM Plex Mono", monospace !important;
 }
-/* Force C1Component to use our font */
-.c1-message-container,
-.c1-message-container * {
-  font-family: var(--font-plex-mono), "IBM Plex Mono", monospace !important;
+.c1-message-container {
+  min-width: 0;
+  font-family: var(--font-plex-mono), "IBM Plex Mono", monospace;
 }
 
-/* Override any Inter font declarations from C1Component */
-[class*="ai-agent"],
-[class*="ai-agent"] * {
-  font-family: var(--font-plex-mono), "IBM Plex Mono", monospace !important;
+.c1-message-container .openui-card {
+  max-width: 100%;
 }
 
 .thesys-chat-wrapper [data-radix-scroll-area-viewport] {

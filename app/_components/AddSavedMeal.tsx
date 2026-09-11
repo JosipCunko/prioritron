@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Button from "./reusable/Button";
 import { successToast, errorToast } from "../_utils/utils";
+import { invalidateClientCache } from "../_utils/clientCache";
 import { BarcodeProductResponse } from "../_types/types";
 import Loader from "./Loader";
 
@@ -189,6 +190,7 @@ export default function AddSavedMeal({
       const result = await createSavedMeal(formData);
 
       if (result.success) {
+        invalidateClientCache("savedMeals");
         formRef.current?.reset();
         setIngredients([""]);
         setScannedProduct(null);

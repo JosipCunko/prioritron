@@ -7,10 +7,8 @@ import {
   SavedMeal,
   ActionResult,
 } from "../_types/types";
-import { unstable_cache } from "next/cache";
 import { defaultDailyNutritionSummary } from "../_utils/utils";
 import { isSameDay } from "date-fns";
-import { CacheTags, CacheDuration } from "../_utils/serverCache";
 
 export async function getLoggedMealsForDate(
   userId: string,
@@ -116,22 +114,18 @@ async function getDailyNutritionSummaryInternal(
   }
 }
 
+/**
+ * Daily totals change with every logged meal. Do not put this in the Next.js
+ * Data Cache — a 3-minute (or SWR) entry keeps the health page stale until reload.
+ */
 export const getDailyNutritionSummary = async (
   userId: string,
   date: number
 ): Promise<DailyNutritionSummary> => {
-  const cachedGetNutritionSummary = unstable_cache(
-    getDailyNutritionSummaryInternal,
-    [`health:user:${userId}`],
-    {
-      tags: [CacheTags.userHealth(userId)],
-      revalidate: CacheDuration.FITNESS_HEALTH,
-    }
-  );
-  return cachedGetNutritionSummary(userId, date);
+  return getDailyNutritionSummaryInternal(userId, date);
 };
 
-async function getSavedMealsInternal(
+export async function getSavedMeals(
   userId: string
 ): Promise<ActionResult<SavedMeal[]>> {
   try {
@@ -159,18 +153,3 @@ async function getSavedMealsInternal(
     };
   }
 }
-
-export const getSavedMeals = async (
-  userId: string
-): Promise<ActionResult<SavedMeal[]>> => {
-  const cachedGetSavedMeals = unstable_cache(
-    getSavedMealsInternal,
-    [`health:user:${userId}`],
-    {
-      tags: [CacheTags.userHealth(userId)],
-      revalidate: CacheDuration.FITNESS_HEALTH,
-    }
-  );
-
-  return cachedGetSavedMeals(userId);
-};

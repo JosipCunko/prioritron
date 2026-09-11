@@ -206,6 +206,18 @@ export const defaultExercises: Omit<Exercise, "id">[] = [
     ],
   },
   {
+    name: "Lat Pullover",
+    category: "Back",
+    muscleGroups: ["Lats"],
+    equipment: "Cable Machine",
+    instructions: [
+      "Stand with feet shoulder-width apart, slightly bent at the hips",
+      "Grip cable bar with palms facing down",
+      "Pull cable bar towards hips",
+      "Slowly return to starting position",
+    ],
+  },
+  {
     name: "Seated Cable Row",
     category: "Back",
     muscleGroups: ["Lats", "Rhomboids", "Traps"],

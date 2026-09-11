@@ -116,7 +116,9 @@ export default function SearchApp({ onCloseModal, tasks }: SearchProps) {
         // Search saved meals
         let savedMealResults: SavedMeal[] = [];
         try {
-          const mealsResponse = await fetch("/api/health/savedMeals");
+          const mealsResponse = await fetch("/api/health/savedMeals", {
+            cache: "no-store",
+          });
           if (mealsResponse.ok) {
             const mealsData = await mealsResponse.json();
             const allMeals = mealsData.data || [];

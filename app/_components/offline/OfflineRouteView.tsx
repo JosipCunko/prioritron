@@ -1,7 +1,6 @@
 "use client";
 
 import { CalendarDays, WifiOff } from "lucide-react";
-import type { Task } from "@/app/_types/types";
 import { useTaskStore } from "@/app/_store/taskStore";
 import TasksPageClient from "@/app/webapp/tasks/TasksPageClient";
 import Calendar from "@/app/webapp/calendar/Calendar";
@@ -9,6 +8,7 @@ import TodayPlanSection from "../TodayPlanSection";
 import CompletedTasksClient from "@/app/webapp/completed/CompletedTasksClient";
 import OfflineDashboard from "./OfflineDashboard";
 import OfflineUnavailable from "./OfflineUnavailable";
+import { relevantTodayTasks } from "@/app/_utils/utils";
 
 /**
  * Routes that can be rendered from cached task data alone. Everything else
@@ -97,20 +97,6 @@ export default function OfflineRouteView({ pathname }: { pathname: string }) {
     default:
       return <OfflineDashboard tasks={tasks} />;
   }
-}
-
-/**
- * Mirrors the filter in the today page: everything unfinished, plus whatever
- * was completed today.
- */
-function relevantTodayTasks(tasks: Task[]) {
-  const startOfToday = new Date();
-  startOfToday.setHours(0, 0, 0, 0);
-  return tasks.filter((task) => {
-    if (task.status !== "completed") return true;
-    if (task.completedAt) return task.completedAt >= startOfToday.getTime();
-    return true;
-  });
 }
 
 function NoCachedTasks() {

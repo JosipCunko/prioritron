@@ -60,6 +60,16 @@ export function isOfflineTaskId(taskId: string) {
   return taskId.startsWith(OFFLINE_ID_PREFIX);
 }
 
+function isTask(value: unknown): value is Task {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "id" in value &&
+    typeof (value as Task).id === "string" &&
+    "dueDate" in value
+  );
+}
+
 function newOfflineId() {
   const random =
     typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -121,28 +131,50 @@ function queuedResult<T>(): ActionResult<T> {
 /**
  * Runs a task mutation, falling back to the offline queue.
  *
- * When the write reaches the server we do not touch the store: the actions
- * call `revalidateTaskData`, so the webapp layout re-renders and re-seeds the
- * store with authoritative data. `applyLocally` is only for the queued path.
+ * Always apply locally first so other routes (like /today) that read the
+ * client store do not keep showing a stale copy while Next.js still has a
+ * cached RSC payload for that page. If the server write succeeds we keep the
+ * optimistic state; a later layout hydrate confirms it. Failed writes revert.
  */
 async function runTaskMutation<T>(
   mutation: QueuedMutation,
   applyLocally: () => void,
   perform: () => Promise<ActionResult<T>>,
 ): Promise<ActionResult<T>> {
+  const store = useTaskStore.getState();
+  const snapshot = {
+    tasks: [...store.tasks],
+    locallyDeletedIds: [...store.locallyDeletedIds],
+  };
+
+  applyLocally();
+
   if (!navigator.onLine) {
-    applyLocally();
     await enqueue(mutation);
     return queuedResult<T>();
   }
 
   try {
-    return await perform();
+    const result = await perform();
+    if (!result.success) {
+      useTaskStore.getState().restoreSnapshot(snapshot);
+      return result;
+    }
+
+    if (mutation.kind === "create" && isTask(result.data)) {
+      const next = useTaskStore.getState();
+      next.removeTask(mutation.tempId);
+      next.upsertTask(result.data);
+    }
+
+    return result;
   } catch (error) {
-    if (!isNetworkError(error)) throw error;
-    applyLocally();
-    await enqueue(mutation);
-    return queuedResult<T>();
+    if (isNetworkError(error)) {
+      await enqueue(mutation);
+      return queuedResult<T>();
+    }
+    useTaskStore.getState().restoreSnapshot(snapshot);
+    throw error;
   }
 }
 

@@ -38,7 +38,11 @@ const NUTRIENT_OPTIONS: {
   { value: "fat", label: "Fat", color: "#ef4444", unit: "g" },
 ];
 
-export default function NutritionGraphs() {
+export default function NutritionGraphs({
+  refreshKey = 0,
+}: {
+  refreshKey?: number;
+}) {
   const [isPending, startTransition] = useTransition();
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>(1);
   const [selectedNutrient, setSelectedNutrient] =
@@ -48,13 +52,14 @@ export default function NutritionGraphs() {
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedPeriod]);
+  }, [selectedPeriod, refreshKey]);
 
   const loadData = () => {
     startTransition(async () => {
       try {
         const res = await fetch("/api/health/historical", {
           method: "POST",
+          cache: "no-store",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ monthsBack: selectedPeriod }),
         });

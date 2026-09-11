@@ -4,7 +4,7 @@ import {
   AlertCircle,
   FileText,
   Plus,
-  Edit3,
+  SquarePen,
   Clock,
   BarChart3,
 } from "lucide-react";
@@ -25,7 +25,7 @@ const FunctionResults: React.FC<FunctionResultsProps> = ({ results }) => {
       case "delay_task":
         return <Clock size={16} className="text-orange-500" />;
       case "update_task":
-        return <Edit3 size={16} className="text-purple-500" />;
+        return <SquarePen size={16} className="text-purple-500" />;
       case "complete_task":
         return <CheckCircle size={16} className="text-green-500" />;
       case "create_task":

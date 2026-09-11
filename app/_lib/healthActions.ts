@@ -325,6 +325,11 @@ export async function deleteLoggedMeal(
       };
     }
     await adminDb.collection("loggedMeals").doc(loggedMealId).delete();
+
+    revalidateTag(CacheTags.userHealth(session.user.id));
+    revalidatePath("/webapp/health");
+    revalidatePath("/webapp");
+
     return {
       success: true,
       message: "Meal deleted",

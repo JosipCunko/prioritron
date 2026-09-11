@@ -69,10 +69,6 @@ export default function NotFound() {
           &lt; Signal_Lost /&gt;
         </h1>
 
-        <p className="text-text-low text-base sm:text-lg mt-4 mb-8 max-w-md leading-relaxed">
-          The requested route is not mapped in this sector. Trace terminated.
-        </p>
-
         <div className="w-full bg-background-700 border border-primary-500/30 rounded-lg overflow-hidden shadow-[0_0_15px_rgba(14,165,233,0.15)] text-left mb-10">
           <div className="bg-background-600/80 border-b border-primary-500/20 px-4 py-2 flex items-center justify-between">
             <div className="flex items-center space-x-2">

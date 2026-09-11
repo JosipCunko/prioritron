@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     "nutrition",
     "AI assistant",
     "PWA",
-    "habit tracking",
     "gamification",
     "goal tracking",
     "calendar",
@@ -50,10 +49,10 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     images: [
       {
-        url: "/dashboard.png",
-        width: 1200,
-        height: 630,
-        alt: `${SITE_NAME} dashboard`,
+        url: "/icon-512.png",
+        width: 512,
+        height: 512,
+        alt: `${SITE_NAME} logo`,
       },
     ],
   },
@@ -61,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/dashboard.png"],
+    images: ["/icon-512.png"],
   },
   appleWebApp: {
     capable: true,

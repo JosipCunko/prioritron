@@ -5,7 +5,7 @@ import { updateLoggedMeal, deleteLoggedMeal } from "@/app/_lib/healthActions";
 import { successToast, errorToast } from "@/app/_utils/utils";
 import Button from "./reusable/Button";
 import Input from "./reusable/Input";
-import { Trash2, Edit, Save, X, Utensils, AlertTriangle } from "lucide-react";
+import { Trash2, SquarePen, Save, X, Utensils, AlertTriangle } from "lucide-react";
 import { isToday } from "date-fns";
 import { LoggedMeal, MealNutrition } from "../_types/types";
 import { Tooltip } from "react-tooltip";
@@ -206,7 +206,7 @@ export default function LoggedMealCard({
               }
               data-tooltip-id="edit-tooltip"
             >
-              <Edit size={16} /> Edit
+              <SquarePen size={16} /> Edit
             </Button>
             <Tooltip
               id="edit-tooltip"
@@ -273,7 +273,7 @@ const NutritionDisplay = ({ nutrients }: { nutrients: MealNutrition }) => {
           </div>
           <div className="flex rounded-lg overflow-hidden h-4 tooltip-container">
             <div
-              className="bg-blue-500"
+              className="bg-accent"
               style={{
                 width: `${
                   ((nutrients.protein * 4) / totalMacroCalories) * 100

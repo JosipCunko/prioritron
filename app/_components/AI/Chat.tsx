@@ -302,12 +302,24 @@ export default function Chat({
   // Handle C1Component actions (user interactions with rich UI)
   const handleC1Action = useCallback(
     async (event: {
-      humanFriendlyMessage: string;
-      llmFriendlyMessage: string;
+      humanFriendlyMessage?: string;
+      llmFriendlyMessage?: string;
+      params?: Record<string, unknown>;
     }) => {
-      console.log("C1 Action:", event);
+      const humanFriendlyMessage =
+        event.humanFriendlyMessage ||
+        (typeof event.params?.humanFriendlyMessage === "string"
+          ? event.params.humanFriendlyMessage
+          : "");
+      const llmFriendlyMessage =
+        event.llmFriendlyMessage ||
+        (typeof event.params?.llmFriendlyMessage === "string"
+          ? event.params.llmFriendlyMessage
+          : "");
 
-      const action = parseC1Action(event.llmFriendlyMessage);
+      if (!llmFriendlyMessage && !humanFriendlyMessage) return;
+
+      const action = parseC1Action(llmFriendlyMessage);
 
       // Try to execute custom action first
       if (action.type !== "followup") {
@@ -317,14 +329,14 @@ export default function Chat({
           // For navigate actions, we don't need follow-up since we're leaving the page
           if (action.type !== "navigate" && action.type !== "view_task") {
             // Send the human-friendly message as context for the AI
-            sendFollowUpMessage(event.humanFriendlyMessage);
+            sendFollowUpMessage(humanFriendlyMessage || llmFriendlyMessage);
           }
           return;
         }
       }
 
       // Default behavior: send the message back to the AI as a follow-up
-      sendFollowUpMessage(event.humanFriendlyMessage);
+      sendFollowUpMessage(humanFriendlyMessage || llmFriendlyMessage);
     },
     [executeCustomAction, sendFollowUpMessage],
   );
@@ -679,9 +691,9 @@ export default function Chat({
                               {msg.modelName || getModelNameFromId(msg.modelId)}
                             </span>
                           </div>
-                          <div className="rounded-lg p-4 bg-background-600 border border-background-500 sm:ml-0 -ml-14 sm:mt-0 mt-4">
+                          <div className="min-w-0 sm:ml-0 -ml-14 sm:mt-0 mt-4 space-y-3">
                             {msg.content ? (
-                              <div className="text-sm leading-relaxed ai-response prose prose-invert max-w-none c1-message-container">
+                              <div className="c1-message-container min-w-0">
                                 <C1Component
                                   c1Response={msg.content}
                                   isStreaming={false}
@@ -694,14 +706,10 @@ export default function Chat({
                               </p>
                             )}
                             {msg.functionResults && (
-                              <div className="mt-3">
-                                <FunctionResults
-                                  results={msg.functionResults}
-                                />
-                              </div>
+                              <FunctionResults results={msg.functionResults} />
                             )}
                             {msg.duration && (
-                              <p className="text-xs text-blue-400 mt-2">
+                              <p className="text-xs text-blue-400">
                                 {msg.duration}s
                               </p>
                             )}
@@ -738,14 +746,12 @@ export default function Chat({
                         </span>
                       </div>
                       {streamingContent ? (
-                        <div className="rounded-lg p-4 bg-background-600 border border-background-500 sm:ml-0 -ml-14 sm:mt-0 mt-4">
-                          <div className="text-sm leading-relaxed ai-response prose prose-invert max-w-none c1-message-container">
-                            <C1Component
-                              c1Response={streamingContent}
-                              isStreaming={true}
-                              onAction={handleC1Action}
-                            />
-                          </div>
+                        <div className="c1-message-container min-w-0 sm:ml-0 -ml-14 sm:mt-0 mt-4">
+                          <C1Component
+                            c1Response={streamingContent}
+                            isStreaming={true}
+                            onAction={handleC1Action}
+                          />
                         </div>
                       ) : (
                         <ThinkingIndicator />

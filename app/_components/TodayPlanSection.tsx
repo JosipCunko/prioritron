@@ -5,22 +5,12 @@ import { Plus } from "lucide-react";
 import { useState, useMemo } from "react";
 import Modal, { ModalContext } from "./Modal";
 import AddTodayTask from "./AddTodayTask";
-import { getStartAndEndTime } from "@/app/_utils/utils";
+import { getStartAndEndTime, relevantTodayTasks } from "@/app/_utils/utils";
 import TaskCardSmall from "./TaskCardSmall";
 import DurationCalculator from "./DurationCalculator";
 
 interface TodayPlanSectionProps {
   todayTasks: Task[];
-}
-
-function relevantTodayTasks(tasks: Task[]) {
-  const startOfToday = new Date();
-  startOfToday.setHours(0, 0, 0, 0);
-  return tasks.filter((task) => {
-    if (task.status !== "completed") return true;
-    if (task.completedAt) return task.completedAt >= startOfToday.getTime();
-    return true;
-  });
 }
 
 export default function TodayPlanSection({
